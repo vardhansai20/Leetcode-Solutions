@@ -1,0 +1,75 @@
+QUESTION
+
+Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.
+
+ 
+
+Example 1:
+Input: head = [1,1,2]
+Output: [1,2]
+
+
+Example 2:
+Input: head = [1,1,2,3,3]
+Output: [1,2,3]
+ 
+
+Constraints:
+
+The number of nodes in the list is in the range [0, 300].
+-100 <= Node.val <= 100
+The list is guaranteed to be sorted in ascending order.
+
+SOLUTION
+
+Intuition
+The linked list is sorted, so all duplicates will be next to each other.
+
+You can use this property to remove duplicates in a single pass.
+
+Simply compare each node with the next one. If they are the same, skip the next node.
+
+Approach
+Initialize a pointer current to the head of the list.
+
+Traverse the list while current and current.next are not null.
+
+For each node:
+
+If current.val == current.next.val, then the next node is a duplicate.
+
+Skip the duplicate by setting current.next = current.next.next.
+
+Else, move current to the next node.
+
+Continue until the end of the list.
+
+Return the updated head.
+
+Complexity
+Time complexity: O(n)
+You traverse the list only once, where n is the number of nodes in the linked list.
+
+Each node is visited at most once.
+
+Space complexity:O(1)
+You use a constant amount of extra space (just one pointer: current).
+
+No extra data structures are used — all operations are in-place.
+
+JAVA CODE
+
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode current = head;
+        while(current != null && current.next != null){
+            if(current.val == current.next.val){
+                current.next = current.next.next;
+            }
+            else{
+                current = current.next;
+            }
+        }
+        return head;
+    }
+}
