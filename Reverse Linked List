@@ -1,0 +1,105 @@
+QUESTION
+
+
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+ 
+
+Example 1:
+
+
+Input: head = [1,2,3,4,5]
+Output: [5,4,3,2,1]
+Example 2:
+
+
+Input: head = [1,2]
+Output: [2,1]
+Example 3:
+
+Input: head = []
+Output: []
+ 
+
+Constraints:
+
+The number of nodes in the list is the range [0, 5000].
+-5000 <= Node.val <= 5000
+ 
+
+Follow up: A linked list can be reversed either iteratively or recursively. Could you implement both?
+
+SOLUTION
+
+Intuition
+To reverse a linked list, we need to reverse the direction of all next pointers.
+
+Instead of pointing to the next node, each node should point to the previous node.
+
+We can do this by iterating through the list and adjusting the next pointers one by one.
+
+Approach
+Initialize three pointers:
+previous = null: will eventually be the new head.
+
+current = head: start at the original head.
+
+next = current.next: to store the next node during reversal.
+
+Traverse the list:
+Save the next node (next = current.next) before breaking the link.
+
+Reverse the link: current.next = previous.
+
+Move previous and current forward.
+
+If next is not null, update next = current.next for the next iteration.
+
+When current becomes null, previous points to the new head of the reversed list.
+
+Return previous as the new head.
+
+Complexity
+Time complexity: O(n)
+
+Each node is visited exactly once.
+
+n = number of nodes in the list.
+
+Space complexity: O(1)
+
+No extra space is used.
+
+Only three pointers are maintained regardless of the list size.
+
+Code
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if(head == null){
+            return head;
+        }
+        ListNode previous = null;
+        ListNode current = head;
+        ListNode next = current.next;
+        while(current != null){
+            current.next = previous;
+            previous = current;
+            current = next;
+            if(next != null){
+                next = current.next;
+            }
+        }
+        head = previous;
+        return head;
+    }
+}
